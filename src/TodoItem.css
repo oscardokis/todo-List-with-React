@@ -1,0 +1,24 @@
+li { 
+  position: relative;
+  background-color:white;
+  height: 70px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 10px 5px 5px #3B3126;
+  border: 1px solid #3B3126;
+  cursor: pointer;
+}
+
+p{
+  display: inline-block;
+  margin: 0;
+  width: 75%;
+  text-align: center;
+  color: #3B3126;
+}
+.TodoItemCompleted{
+  text-decoration: line-through;
+}

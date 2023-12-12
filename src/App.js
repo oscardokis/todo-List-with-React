@@ -1,25 +1,93 @@
-import logo from './platzi.webp';
-import './App.css';
+import React from 'react';
+import { TodoCounter } from './TodoCounter';
+import { TodoSearch } from './TodoSearch';
+import { TodoList } from './TodoList';
+import { TodoItem } from './TodoItem';
+import { CreateTodoButton } from './CreateTodoButton';
 
+const defaultTodos =[
+  {text: 'Cut Onions', completed: true},
+  {text: 'Buy things in the grocery', completed: false},
+  {text: 'Study JS', completed: true},
+  {text: 'Work and Work', completed: false},
+  {text: 'Learn React<3 with passion', completed: true}
+];
+let titles = '';
 function App() {
+  const [todos, setTodos] = React.useState(defaultTodos);
+  const [searchValue, setsearchValue] = React.useState('');
+
+  const completedTodos = todos.filter((todo)=> 
+  !!todo.completed).length;
+  const totalTodos = todos.length;
+
+  
+  if(completedTodos === totalTodos){
+      titles = `Well done, all good up to date`;
+    }else{
+      titles = `You have completed ${completedTodos} of ${totalTodos} to do`;
+    }
+  
+  
+  const searchedTodos = todos.filter(
+    (todo) =>{
+      const todoText = todo.text.toLowerCase();
+      const searchText = searchValue.toLowerCase();
+      return todoText.includes(searchText);
+    }
+  );
+
+    // I created a copy de original todo array and then filtered by findIndex of the text that match the text of the to do and then toggled
+  const completeTodo = (text) => {
+    const newTodos =[...todos];
+    const todoIndex = newTodos.findIndex(
+      (todo) => todo.text === text
+      );
+    newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
+    setTodos(newTodos);
+  };
+  const DeleteTodo = (text) => {
+    const newTodos = [...todos];
+    const todoIndex = newTodos.findIndex(
+      (todo) => todo.text === text
+    );
+    newTodos.splice(todoIndex,1);
+    setTodos(newTodos);
+  };
+  
+
+  // El estado es inmutable y no debe ser cambiado por esto react nos proporciona la funcion set para cambiar el estado
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edita el archivo <code>src/App.js</code> y guarda para recargar.
-        </p>
-        <a
-          className="App-link"
-          href="https://platzi.com/reactjs"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <> 
+    {/* React can not render a multiple components biyitself so it needs to be inside of at least one element "App" in this case  the ONLY way it is with React.Fragment (Empty it will be the same) element (Do not forget to use the import React from react)*/}
+
+      <TodoCounter 
+        titles ={titles}
+        /* completed={completedTodos} 
+        total={totalTodos} *//>
+      <TodoSearch 
+        searchValue={searchValue}
+        setsearchValue={setsearchValue}
+      />
+
+      <TodoList>
+        {searchedTodos.map(todo => (
+          <TodoItem 
+          key = {todo.text} 
+          text={todo.text}
+          completed={todo.completed}
+          onComplete={() => completeTodo(todo.text)}
+          onDelete={() => DeleteTodo(todo.text)}
+          />
+        ))}
+      </TodoList>
+
+      <CreateTodoButton />
+    </>
   );
 }
+
+
 
 export default App;

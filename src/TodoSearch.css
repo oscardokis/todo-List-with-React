@@ -1,0 +1,18 @@
+.TodoSearchLabel{
+  display: block;
+  margin: 0 auto;
+  margin-bottom: 35px;
+  text-align: center;
+}
+.TodoSearchInput{
+  text-align: center;
+  min-height: 50px;
+  width: 70%;
+  border-radius: 10px;
+  box-shadow: 10px 5px 5px #3B3126;
+  border: 1px solid #3B3126;
+}
+.TodoSearchInput:focus{
+  outline-color: #78D050;
+  border: #78D050;
+}

@@ -1,0 +1,18 @@
+.TodoButtonCss{
+  font-size: 50px;
+  font-weight: bold;
+  background-color: #0D1B1E;
+  color: #E8DCB9;
+  width: 60px;
+  height: 60px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  transform: rotate(0);
+  transition: .3s ease;
+}
+.TodoButtonCss:hover {
+  transform: rotate(224deg);
+}

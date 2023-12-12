@@ -1,0 +1,21 @@
+.icon-complete {
+  display: flex;
+  width:32px;
+  height: 32px;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+.icon-delete {
+  position: absolute;
+  top: 0%;
+  left: calc(100% - 24px);
+  width:16px;
+  height: 16px;
+}
+.icon-complete svg:hover{
+  fill:green;
+}
+.icon-delete svg:hover{
+  fill: red;
+}
