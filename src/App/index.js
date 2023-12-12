@@ -1,11 +1,9 @@
 import React from 'react';
-import { TodoCounter } from './TodoCounter';
-import { TodoSearch } from './TodoSearch';
-import { TodoList } from './TodoList';
-import { TodoItem } from './TodoItem';
-import { CreateTodoButton } from './CreateTodoButton';
+import { AppUI } from './AppUI';
+import { useLocalStorage } from './useLocalStorage';
 
-/* const defaultTodos =[
+/* localStorage.removeItem('TODOS_V1');
+const defaultTodos =[
   {text: 'Cut Onions', completed: true},
   {text: 'Buy things in the grocery', completed: false},
   {text: 'Study JS', completed: true},
@@ -14,40 +12,22 @@ import { CreateTodoButton } from './CreateTodoButton';
 ];
 localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos)); */
 
-
-
-function useLocalStorage(itemName, initialValue) {
-  const localStorageItem = localStorage.getItem(itemName);
-  let parsedItem;
-
-  if(!localStorageItem){
-    localStorage.setItem(itemName, JSON.stringify(initialValue));
-    parsedItem =initialValue;
-  }else{
-    parsedItem = JSON.parse(localStorageItem);
-  }
-
-  const [item, setItem] = React.useState(parsedItem);
-  
-
-  //Save localStorage Data
-  const saveItem = (newItem) => {
-    localStorage.setItem(itemName, JSON.stringify(newItem));
-    setItem(newItem);
-  };
-
-  return [item, saveItem];
-}
-
 function App() {
   let titles="";
-  const [todos, saveItem] = useLocalStorage('TODOS_V1', []);
+  const {
+    item:todos, 
+    saveItem, 
+    loading,
+    error,} = useLocalStorage('TODOS_V1', []);
   const [searchValue, setsearchValue] = React.useState('');
 
   const completedTodos = todos.filter((todo)=> 
   !!todo.completed).length;
   const totalTodos = todos.length;
-
+  // 
+  /* console.log('Log 1');
+  React.useEffect(() => {console.log('Looooog 2')});
+  console.log('Log 3'); */
   
   if(completedTodos === totalTodos){
       titles = `Well done, all good up to date`;
@@ -88,32 +68,16 @@ function App() {
   // El estado es inmutable y no debe ser cambiado por esto react nos proporciona la funcion set para cambiar el estado
   
   return (
-    <> 
-    {/* React can not render a multiple components biyitself so it needs to be inside of at least one element "App" in this case  the ONLY way it is with React.Fragment (Empty it will be the same) element (Do not forget to use the import React from react)*/}
-
-      <TodoCounter 
-        titles ={titles}
-        /* completed={completedTodos} 
-        total={totalTodos} *//>
-      <TodoSearch 
-        searchValue={searchValue}
-        setsearchValue={setsearchValue}
-      />
-
-      <TodoList>
-        {searchedTodos.map(todo => (
-          <TodoItem 
-          key = {todo.text} 
-          text={todo.text}
-          completed={todo.completed}
-          onComplete={() => completeTodo(todo.text)}
-          onDelete={() => DeleteTodo(todo.text)}
-          />
-        ))}
-      </TodoList>
-
-      <CreateTodoButton />
-    </>
+    <AppUI
+      titles = { titles }
+      searchValue = { searchValue }
+      setsearchValue = { setsearchValue }
+      searchedTodos = { searchedTodos }
+      completeTodo = { completeTodo }
+      DeleteTodo = { DeleteTodo }
+      loading = { loading }
+      error = { error }
+    />
   );
 }
 
