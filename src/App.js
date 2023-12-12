@@ -5,16 +5,29 @@ import { TodoList } from './TodoList';
 import { TodoItem } from './TodoItem';
 import { CreateTodoButton } from './CreateTodoButton';
 
-const defaultTodos =[
+/* const defaultTodos =[
   {text: 'Cut Onions', completed: true},
   {text: 'Buy things in the grocery', completed: false},
   {text: 'Study JS', completed: true},
   {text: 'Work and Work', completed: false},
   {text: 'Learn React<3 with passion', completed: true}
 ];
+localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos)); */
+
+
 let titles = '';
 function App() {
-  const [todos, setTodos] = React.useState(defaultTodos);
+  const localStorageTodos = localStorage.getItem('TODOS_V1');
+  let parsedTodos;
+
+  if(!localStorageTodos){
+    localStorage.setItem("TODOS_V1", JSON.stringify([]));
+    parsedTodos =[];
+  }else{
+    parsedTodos = JSON.parse(localStorageTodos);
+  }
+
+  const [todos, setTodos] = React.useState(parsedTodos);
   const [searchValue, setsearchValue] = React.useState('');
 
   const completedTodos = todos.filter((todo)=> 
@@ -37,6 +50,10 @@ function App() {
     }
   );
 
+    const saveTodos = (newTodos) => {
+      localStorage.setItem('TODOS_V1', JSON.stringify(newTodos));
+      setTodos(newTodos);
+    };
     // I created a copy de original todo array and then filtered by findIndex of the text that match the text of the to do and then toggled
   const completeTodo = (text) => {
     const newTodos =[...todos];
@@ -44,15 +61,17 @@ function App() {
       (todo) => todo.text === text
       );
     newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
-    setTodos(newTodos);
+    saveTodos(newTodos);
   };
+
+  
   const DeleteTodo = (text) => {
     const newTodos = [...todos];
     const todoIndex = newTodos.findIndex(
       (todo) => todo.text === text
     );
     newTodos.splice(todoIndex,1);
-    setTodos(newTodos);
+    saveTodos(newTodos);
   };
   
 
