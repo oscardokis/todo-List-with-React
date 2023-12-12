@@ -6,27 +6,25 @@ import { CreateTodoButton } from '../CreateTodoButton';
 import { TodoLoading } from '../TodoLoading';
 import { EmptyTodos } from '../EmptyTodos';
 import { TodoError } from '../TodoError';
-function AppUI( {
-  titles,
-  searchValue,
-  setsearchValue,
-  searchedTodos,
-  completeTodo,
-  DeleteTodo,
-  loading,
-  error,
-}){
+import { TodoContext } from '../TodoContext';
+import React from 'react';
+import { Modal } from '../Modal';
+import { TodoForm } from '../TodoForm';
+function AppUI(){
+  const {searchedTodos,
+    completeTodo,
+    DeleteTodo,
+    loading,
+    error,
+    openModal,
+    setopenModal,
+  } = React.useContext(TodoContext);
   return(
   
   /* React can not render a multiple components biyitself so it needs to be inside of at least one element "App" in this case  the ONLY way it is with React.Fragment (Empty it will be the same) element (Do not forget to use the import React from react) */
   <> 
-    <TodoCounter 
-      titles ={titles}
-    />
-    <TodoSearch 
-      searchValue={searchValue}
-      setsearchValue={setsearchValue}
-    />
+    <TodoCounter/>
+    <TodoSearch/>
 
     <TodoList>
       {loading && <TodoLoading/>}
@@ -43,7 +41,16 @@ function AppUI( {
       ))}
     </TodoList>
 
-    <CreateTodoButton />
+
+    <CreateTodoButton 
+      setopenModal={setopenModal}
+    />
+
+    {openModal && (
+      <Modal>
+        <TodoForm/>
+      </Modal>
+    )}
   </>
   );
 }
