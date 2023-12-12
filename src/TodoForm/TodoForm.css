@@ -1,0 +1,21 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 320px;
+  width: 50%;
+  height: 400px;
+  background-color: #3B3126;
+
+}
+
+textarea {
+
+}
+
+.TodoFOrm-buttonContainer {
+
+}
+.TodoForm-button{
+
+}
