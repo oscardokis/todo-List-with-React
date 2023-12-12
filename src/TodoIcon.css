@@ -1,17 +1,15 @@
-.icon-complete {
-  display: flex;
-  width:32px;
+.icon-complete svg{
+  display: inline-block;
+  width: 32px;
   height: 32px;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
 }
+
 .icon-delete {
   position: absolute;
-  top: 0%;
+  top: calc(0% - 10px);
   left: calc(100% - 24px);
-  width:16px;
-  height: 16px;
+  width:24px;
+  height: 24px;
 }
 .icon-complete svg:hover{
   fill:green;

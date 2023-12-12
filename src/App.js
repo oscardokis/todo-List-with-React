@@ -15,19 +15,33 @@ import { CreateTodoButton } from './CreateTodoButton';
 localStorage.setItem('TODOS_V1', JSON.stringify(defaultTodos)); */
 
 
-let titles = '';
-function App() {
-  const localStorageTodos = localStorage.getItem('TODOS_V1');
-  let parsedTodos;
 
-  if(!localStorageTodos){
-    localStorage.setItem("TODOS_V1", JSON.stringify([]));
-    parsedTodos =[];
+function useLocalStorage(itemName, initialValue) {
+  const localStorageItem = localStorage.getItem(itemName);
+  let parsedItem;
+
+  if(!localStorageItem){
+    localStorage.setItem(itemName, JSON.stringify(initialValue));
+    parsedItem =initialValue;
   }else{
-    parsedTodos = JSON.parse(localStorageTodos);
+    parsedItem = JSON.parse(localStorageItem);
   }
 
-  const [todos, setTodos] = React.useState(parsedTodos);
+  const [item, setItem] = React.useState(parsedItem);
+  
+
+  //Save localStorage Data
+  const saveItem = (newItem) => {
+    localStorage.setItem(itemName, JSON.stringify(newItem));
+    setItem(newItem);
+  };
+
+  return [item, saveItem];
+}
+
+function App() {
+  let titles="";
+  const [todos, saveItem] = useLocalStorage('TODOS_V1', []);
   const [searchValue, setsearchValue] = React.useState('');
 
   const completedTodos = todos.filter((todo)=> 
@@ -49,11 +63,7 @@ function App() {
       return todoText.includes(searchText);
     }
   );
-
-    const saveTodos = (newTodos) => {
-      localStorage.setItem('TODOS_V1', JSON.stringify(newTodos));
-      setTodos(newTodos);
-    };
+      
     // I created a copy de original todo array and then filtered by findIndex of the text that match the text of the to do and then toggled
   const completeTodo = (text) => {
     const newTodos =[...todos];
@@ -61,7 +71,7 @@ function App() {
       (todo) => todo.text === text
       );
     newTodos[todoIndex].completed = !newTodos[todoIndex].completed;
-    saveTodos(newTodos);
+    saveItem(newTodos);
   };
 
   
@@ -71,7 +81,7 @@ function App() {
       (todo) => todo.text === text
     );
     newTodos.splice(todoIndex,1);
-    saveTodos(newTodos);
+    saveItem(newTodos);
   };
   
 
