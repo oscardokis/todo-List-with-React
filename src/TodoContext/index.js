@@ -46,6 +46,14 @@ function TodoProvider({children}){
     saveItem(newTodos);
   };
 
+  const addTodo = (text) => {
+    const newTodos =[...todos];
+    newTodos.unshift({
+      text,
+      completed: false,
+    });
+    saveItem(newTodos);
+  };
   
   const DeleteTodo = (text) => {
     const newTodos = [...todos];
@@ -70,6 +78,7 @@ function TodoProvider({children}){
     error,
     openModal,
     setopenModal,
+    addTodo,
     }}>
     {children}
   </TodoContext.Provider>
