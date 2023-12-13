@@ -1,14 +1,12 @@
 li { 
   position: relative;
-  background-color:white;
+  background-color:#0b145a;
   height: 70px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 10px;
-  box-shadow: 10px 5px 5px #3B3126;
-  border: 1px solid #3B3126;
+  box-shadow: 1px 1px 0px #3B3126;
   cursor: pointer;
 }
 
@@ -17,7 +15,7 @@ p{
   margin: 0;
   width: 75%;
   text-align: center;
-  color: #3B3126;
+  color: white;
 }
 .TodoItemCompleted{
   text-decoration: line-through;

@@ -3,7 +3,7 @@ import { TodoIcon } from './';
 function DeleteIcon({completed, onDelete}) {
   return (<TodoIcon
     type="delete"
-    color={ completed ?  'red' : '#3B3126'}
+    color={ completed ?  'red' : 'white'}
     onClick = {onDelete}
   />);
 }

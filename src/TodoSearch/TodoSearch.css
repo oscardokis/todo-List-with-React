@@ -6,13 +6,15 @@
 }
 .TodoSearchInput{
   text-align: center;
-  min-height: 50px;
+  min-height: 34px;
   width: 70%;
-  border-radius: 10px;
-  box-shadow: 10px 5px 5px #3B3126;
-  border: 1px solid #3B3126;
+  border: 1px solid #091354;
+  color: white;
+  background-color: #091354;
 }
 .TodoSearchInput:focus{
-  outline-color: #78D050;
-  border: #78D050;
+  outline: 1px #d304fe;
+}
+.TodoSearchInput:hover{
+  border: 2px solid #d304fe;
 }

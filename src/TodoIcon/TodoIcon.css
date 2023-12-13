@@ -12,7 +12,7 @@
   height: 20px;
 }
 .icon-complete svg:hover{
-  fill:green;
+  fill:#d021fc;
 }
 .icon-delete svg:hover{
   fill: red;
