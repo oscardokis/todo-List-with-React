@@ -1,0 +1,1 @@
+This is a small project called TODO LIST that allows us to create different to-do tasks and search for each of them. It was created using React in Java Script, and I used components, states, modules, local storage, and props.
